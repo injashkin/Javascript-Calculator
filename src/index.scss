@@ -1,0 +1,26 @@
+$buttonWidth: 4em;
+$buttonHeight: 4em;
+
+.calc {
+    display: flex;
+    flex-direction: column;
+    width: 16em;
+}
+
+.padButtons {
+    display: flex;
+    flex-wrap: wrap;    
+}
+
+.buttons {
+    width: $buttonWidth;
+    height: $buttonHeight;
+}
+
+.doubleW {
+    width: 8em;
+}
+
+.doubleH {
+    height: 8em;
+}

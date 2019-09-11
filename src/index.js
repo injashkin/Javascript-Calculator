@@ -1,24 +1,100 @@
+const btnData = [
+    {
+        id: 'clear',
+        symbolKeys: 'AC'
+    },
+    {
+        id: 'equals',
+        symbolKeys: '='
+    },
+    {
+        id: 'one',
+        symbolKeys: '1'
+    },
+    {
+        id: 'two',
+        symbolKeys: '2'
+    },
+    {
+        id: 'three',
+        symbolKeys: '3'
+    },
+    {
+        id: 'four',
+        symbolKeys: '4'
+    },
+    {
+        id: 'five',
+        symbolKeys: '5'
+    },
+    {
+        id: 'six',
+        symbolKeys: '6'
+    },
+    {
+        id: 'seven',
+        symbolKeys: '7'
+    },
+    {
+        id: 'eight',
+        symbolKeys: '8'
+    },
+    {
+        id: 'nine',
+        symbolKeys: '9'
+    },
+    {
+        id: 'subtract',
+        symbolKeys: '-'
+    },
+    {
+        id: 'multiply',
+        symbolKeys: 'x'
+    },
+    {
+        id: 'divide',
+        symbolKeys: '/'
+    },
+    {
+        id: 'add',
+        symbolKeys: '+'
+    },
+    {
+        id: 'zero',
+        symbolKeys: '0'
+    },
+    {
+        id: 'decimal',
+        symbolKeys: '.'
+    },
+]
+
+const buttons = btnData.map((item) => {
+    let double = ''
+    if (item.symbolKeys === 'AC' | item.symbolKeys === '0') {
+        double = ' doubleW'
+    }
+    if (item.symbolKeys === '+') {
+        double = ' doubleH'
+    }
+    return (
+        <button
+            key={item.id}
+            className={'buttons' + double}
+            id={item.id}
+        >
+            {item.symbolKeys}
+        </button>
+    )
+})
+
 function App() {
-    return(
-        <div>
+    return (
+        <div className='calc'>
             <div id='display'>This is display</div>
-            <button id='equals'>=</button>
-            <button id='zero'>0</button>
-            <button id='one'>1</button>
-            <button id='two'>2</button>
-            <button id='three'>3</button>
-            <button id='four'>4</button>
-            <button id='five'>5</button>
-            <button id='six'>6</button>
-            <button id='seven'>7</button>
-            <button id='eight'>8</button>
-            <button id='nine'>9</button>
-            <button id='add'>+</button>
-            <button id='subtract'>-</button>
-            <button id='multiply'>x</button>
-            <button id='divide'>/</button>
-            <button id='decimal'>.</button>
-            <button id='clear'>AC</button>            
+            <div className='padButtons'>
+                {buttons}
+            </div>
         </div>
     )
 }
