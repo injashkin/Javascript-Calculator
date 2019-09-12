@@ -4,20 +4,28 @@ const btnData = [
         symbolKeys: 'AC'
     },
     {
-        id: 'equals',
-        symbolKeys: '='
+        id: 'backspace',
+        symbolKeys: '=>'
     },
     {
-        id: 'one',
-        symbolKeys: '1'
+        id: 'multiply',
+        symbolKeys: 'x'
     },
     {
-        id: 'two',
-        symbolKeys: '2'
+        id: 'seven',
+        symbolKeys: '7'
     },
     {
-        id: 'three',
-        symbolKeys: '3'
+        id: 'eight',
+        symbolKeys: '8'
+    },
+    {
+        id: 'nine',
+        symbolKeys: '9'
+    },        
+    {
+        id: 'divide',
+        symbolKeys: '/'
     },
     {
         id: 'four',
@@ -32,28 +40,20 @@ const btnData = [
         symbolKeys: '6'
     },
     {
-        id: 'seven',
-        symbolKeys: '7'
-    },
-    {
-        id: 'eight',
-        symbolKeys: '8'
-    },
-    {
-        id: 'nine',
-        symbolKeys: '9'
-    },
-    {
         id: 'subtract',
         symbolKeys: '-'
     },
     {
-        id: 'multiply',
-        symbolKeys: 'x'
+        id: 'one',
+        symbolKeys: '1'
     },
     {
-        id: 'divide',
-        symbolKeys: '/'
+        id: 'two',
+        symbolKeys: '2'
+    },
+    {
+        id: 'three',
+        symbolKeys: '3'
     },
     {
         id: 'add',
@@ -67,11 +67,15 @@ const btnData = [
         id: 'decimal',
         symbolKeys: '.'
     },
+    {
+        id: 'equals',
+        symbolKeys: '='
+    }  
 ]
 
 const buttons = btnData.map((item) => {
     let double = ''
-    if (item.symbolKeys === 'AC' | item.symbolKeys === '0') {
+    if (item.symbolKeys === 'AC') {
         double = ' doubleW'
     }
     if (item.symbolKeys === '+') {

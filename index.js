@@ -2,26 +2,11 @@ var btnData = [{
     id: 'clear',
     symbolKeys: 'AC'
 }, {
-    id: 'equals',
-    symbolKeys: '='
+    id: 'backspace',
+    symbolKeys: '=>'
 }, {
-    id: 'one',
-    symbolKeys: '1'
-}, {
-    id: 'two',
-    symbolKeys: '2'
-}, {
-    id: 'three',
-    symbolKeys: '3'
-}, {
-    id: 'four',
-    symbolKeys: '4'
-}, {
-    id: 'five',
-    symbolKeys: '5'
-}, {
-    id: 'six',
-    symbolKeys: '6'
+    id: 'multiply',
+    symbolKeys: 'x'
 }, {
     id: 'seven',
     symbolKeys: '7'
@@ -32,14 +17,29 @@ var btnData = [{
     id: 'nine',
     symbolKeys: '9'
 }, {
+    id: 'divide',
+    symbolKeys: '/'
+}, {
+    id: 'four',
+    symbolKeys: '4'
+}, {
+    id: 'five',
+    symbolKeys: '5'
+}, {
+    id: 'six',
+    symbolKeys: '6'
+}, {
     id: 'subtract',
     symbolKeys: '-'
 }, {
-    id: 'multiply',
-    symbolKeys: 'x'
+    id: 'one',
+    symbolKeys: '1'
 }, {
-    id: 'divide',
-    symbolKeys: '/'
+    id: 'two',
+    symbolKeys: '2'
+}, {
+    id: 'three',
+    symbolKeys: '3'
 }, {
     id: 'add',
     symbolKeys: '+'
@@ -49,11 +49,14 @@ var btnData = [{
 }, {
     id: 'decimal',
     symbolKeys: '.'
+}, {
+    id: 'equals',
+    symbolKeys: '='
 }];
 
 var buttons = btnData.map(function (item) {
     var double = '';
-    if (item.symbolKeys === 'AC' | item.symbolKeys === '0') {
+    if (item.symbolKeys === 'AC') {
         double = ' doubleW';
     }
     if (item.symbolKeys === '+') {

@@ -1,3 +1,7 @@
+#display {
+  text-align: right;
+  height: 3em; }
+
 .calc {
   display: flex;
   flex-direction: column;
@@ -16,3 +20,6 @@
 
 .doubleH {
   height: 8em; }
+
+#zero, #decimal, #equals {
+  margin-top: -4em; }
