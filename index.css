@@ -1,25 +1,25 @@
-#display {
-  text-align: right;
-  height: 3em; }
-
 .calc {
   display: flex;
   flex-direction: column;
-  width: 16em; }
+  width: 16rem; }
+
+#display {
+  text-align: right;
+  height: 3rem; }
 
 .padButtons {
   display: flex;
   flex-wrap: wrap; }
 
 .buttons {
-  width: 4em;
-  height: 4em; }
+  width: 4rem;
+  height: 4rem; }
 
 .doubleW {
-  width: 8em; }
+  width: 8rem; }
 
 .doubleH {
-  height: 8em; }
+  height: 8rem; }
 
 #zero, #decimal, #equals {
-  margin-top: -4em; }
+  margin-top: -4rem; }

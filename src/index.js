@@ -22,7 +22,7 @@ const btnData = [
     {
         id: 'nine',
         symbolKeys: '9'
-    },        
+    },
     {
         id: 'divide',
         symbolKeys: '/'
@@ -70,36 +70,107 @@ const btnData = [
     {
         id: 'equals',
         symbolKeys: '='
-    }  
+    }
 ]
 
-const buttons = btnData.map((item) => {
-    let double = ''
-    if (item.symbolKeys === 'AC') {
-        double = ' doubleW'
-    }
-    if (item.symbolKeys === '+') {
-        double = ' doubleH'
-    }
-    return (
-        <button
-            key={item.id}
-            className={'buttons' + double}
-            id={item.id}
-        >
-            {item.symbolKeys}
-        </button>
-    )
-})
-
 function App() {
+
+    const [stateAll, setAll] = React.useState({ allVal: '0' })
+    const [stateValue, setValue] = React.useState({ curVal: '0' })
+    //const [stateOperator, setOperator] = React.useState({ operator: '' })
+
+    const handleKey = (symbol) => {
+        const isDigit = (/[0-9]/).test(symbol)
+        const isOperator = (/[x/+-]/).test(symbol)
+        var digit, operator
+        if (isDigit) {
+            digit = symbol
+        }
+        if (isOperator) {
+            operator = symbol
+        }
+        switch (symbol) {
+            case 'AC':
+                setAll({ allVal: '0'})
+                setValue({ curVal: '0' })
+                break
+            case digit:
+                setAll({
+                    allVal:
+                        stateAll.allVal === '0'
+                        ? symbol : stateAll.allVal + symbol
+                })
+                setValue({                    
+                    curVal:
+                        stateValue.curVal === '0' || (/[x/+-]/).test(stateValue.curVal)
+                            ? symbol : stateValue.curVal + symbol
+
+                })
+                break
+            case operator:
+                setAll({allVal: stateAll.allVal + symbol})
+                setValue({ curVal: symbol })
+                break
+            default:
+                //setDisplay({ display: symbol })
+                break
+        }
+    }
+
     return (
         <div className='calc'>
-            <div id='display'>This is display</div>
+            <Display
+                allVal={stateAll.allVal}
+                curVal={stateValue.curVal}
+            />
             <div className='padButtons'>
-                {buttons}
+                {btnData.map((item) => {
+                    let double = ''
+                    if (item.symbolKeys === 'AC') {
+                        double = ' doubleW'
+                    }
+                    if (item.symbolKeys === '+') {
+                        double = ' doubleH'
+                    }
+                    return (
+                        <Button
+                            key={item.id}
+                            double={double}
+                            id={item.id}
+                            symbolKeys={item.symbolKeys}
+                            handleKey={handleKey}
+                        />
+                    )
+                })}
             </div>
         </div>
     )
 }
+
+function Display(props) {
+    return (
+        <div>
+            <div id='display'>{props.allVal}</div>
+            <div id='display'>{props.curVal}</div>
+        </div>
+    )
+}
+
+function Button(props) {
+
+    function handleKey() {
+        props.handleKey(props.symbolKeys)
+    }
+
+    return (
+        <button
+            className={'buttons' + props.double}
+            id={props.id}
+            onClick={handleKey}
+        >
+            {props.symbolKeys}
+        </button>
+    )
+}
+
 ReactDOM.render(<App />, document.getElementById('root'))

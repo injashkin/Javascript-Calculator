@@ -1,17 +1,17 @@
-$buttonWidth: 4em;
-$buttonHeight: 4em;
-
-#display {
-    text-align: right;
-    //border: 0.1em solid black;
-    height: 3em;
-}
+$buttonWidth: 4rem;
+$buttonHeight: 4rem;
 
 .calc {
     display: flex;
     flex-direction: column;
-    width: 16em;
+    width: 16rem;
     //border: 0.2em solid black;
+}
+
+#display {
+    text-align: right;
+    //border: 0.1em solid black;
+    height: 3rem;
 }
 
 .padButtons {
@@ -25,13 +25,13 @@ $buttonHeight: 4em;
 }
 
 .doubleW {
-    width: 8em;
+    width: 8rem;
 }
 
 .doubleH {
-    height: 8em;
+    height: 8rem;
 }
 
 #zero, #decimal, #equals {
-    margin-top: -4em;
+    margin-top: -4rem;
 }
