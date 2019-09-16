@@ -5,7 +5,7 @@ const btnData = [
     },
     {
         id: 'backspace',
-        symbolKeys: '=>'
+        symbolKeys: '<='
     },
     {
         id: 'multiply',
@@ -91,25 +91,39 @@ function App() {
         }
         switch (symbol) {
             case 'AC':
-                setAll({ allVal: '0'})
+                setAll({ allVal: '0' })
                 setValue({ curVal: '0' })
                 break
             case digit:
                 setAll({
                     allVal:
                         stateAll.allVal === '0'
-                        ? symbol : stateAll.allVal + symbol
+                            ? symbol : stateAll.allVal + symbol
                 })
-                setValue({                    
+                setValue({
                     curVal:
                         stateValue.curVal === '0' || (/[x/+-]/).test(stateValue.curVal)
                             ? symbol : stateValue.curVal + symbol
-
                 })
                 break
             case operator:
-                setAll({allVal: stateAll.allVal + symbol})
+                setAll({
+                    allVal:
+                        (/[x/+-]$/).test(stateAll.allVal)
+                            ? stateAll.allVal.slice(0, -1) + symbol
+                            : stateAll.allVal + symbol
+                })
                 setValue({ curVal: symbol })
+                break
+            case '.':
+                setAll({
+                    allVal: stateAll.allVal + symbol
+                })
+                setValue({
+                    curVal:
+                        stateValue.curVal.includes('.')  //indexOf('.') !== -1 - Другой вариант поиска данного символа в строке
+                        ? stateValue.curVal : stateValue.curVal + symbol
+                })
                 break
             default:
                 //setDisplay({ display: symbol })

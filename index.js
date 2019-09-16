@@ -5,7 +5,7 @@ var btnData = [{
     symbolKeys: 'AC'
 }, {
     id: 'backspace',
-    symbolKeys: '=>'
+    symbolKeys: '<='
 }, {
     id: 'multiply',
     symbolKeys: 'x'
@@ -89,12 +89,22 @@ function App() {
                 });
                 setValue({
                     curVal: stateValue.curVal === '0' || /[x/+-]/.test(stateValue.curVal) ? symbol : stateValue.curVal + symbol
-
                 });
                 break;
             case operator:
-                setAll({ allVal: stateAll.allVal + symbol });
+                setAll({
+                    allVal: /[x/+-]$/.test(stateAll.allVal) ? stateAll.allVal.slice(0, -1) + symbol : stateAll.allVal + symbol
+                });
                 setValue({ curVal: symbol });
+                break;
+            case '.':
+                setAll({
+                    allVal: stateAll.allVal + symbol
+                });
+                setValue({
+                    curVal: stateValue.curVal.includes('.') //indexOf('.') !== -1 - Другой вариант поиска данного символа в строке
+                    ? stateValue.curVal : stateValue.curVal + symbol
+                });
                 break;
             default:
                 //setDisplay({ display: symbol })
