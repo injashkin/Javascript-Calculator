@@ -109,20 +109,28 @@ function App() {
             case operator:
                 setAll({
                     allVal:
-                        (/[x/+-]$/).test(stateAll.allVal)
-                            ? stateAll.allVal.slice(0, -1) + symbol
-                            : stateAll.allVal + symbol
+                        (/\.$/).test(stateAll.allVal) //проверяем наличие точки в конце общего выражения
+                            ? stateAll.allVal.slice(0, -1) + symbol //если точка есть, то удаляем ее и добавляем в конец выражения введенный оператор
+                            : (/[x/+-]$/).test(stateAll.allVal) //если же точки нет, то проверяем наличие в конце выражения любого из операторов
+                                ? stateAll.allVal.slice(0, -1) + symbol //если какой-нибудь оператор присутствует, то удаляем его и добавляем в конец выражения вновь введеннный оператор
+                                : stateAll.allVal + symbol //если же в конце выражения никакого оператора нет, то просто добаляем введенный оператор
                 })
                 setValue({ curVal: symbol })
                 break
             case '.':
                 setAll({
-                    allVal: stateAll.allVal + symbol
+                    allVal:
+                        (/[x/+-]$/).test(stateAll.allVal)
+                            ? stateAll.allVal + '0.' 
+                            : stateAll.allVal.match(/[0-9]*\.?[0-9]*$/)[0].includes('.')  //indexOf('.') !== -1 - Другой вариант поиска данного символа в строке
+                                ? stateAll.allVal 
+                                : stateAll.allVal + '.'
                 })
                 setValue({
                     curVal:
-                        stateValue.curVal.includes('.')  //indexOf('.') !== -1 - Другой вариант поиска данного символа в строке
-                        ? stateValue.curVal : stateValue.curVal + symbol
+                        (/[x/+-]/).test(stateValue.curVal) //проверка наличия оператора в текущем выражении
+                            ? '0.' : stateValue.curVal.includes('.') //если есть оператор, то на место оператора ставится '0.' (ноль с точкой), а если же нет оператора, то проверяется наличие точки
+                                ? stateValue.curVal : stateValue.curVal + '.' //если точка есть, то выражение не меняется, если же точки нет, то к выражению добавляется точка
                 })
                 break
             default:
