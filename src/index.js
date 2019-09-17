@@ -111,9 +111,13 @@ function App() {
                     allVal:
                         (/\.$/).test(stateAll.allVal) //проверяем наличие точки в конце общего выражения
                             ? stateAll.allVal.slice(0, -1) + symbol //если точка есть, то удаляем ее и добавляем в конец выражения введенный оператор
-                            : (/[x/+-]$/).test(stateAll.allVal) //если же точки нет, то проверяем наличие в конце выражения любого из операторов
-                                ? stateAll.allVal.slice(0, -1) + symbol //если какой-нибудь оператор присутствует, то удаляем его и добавляем в конец выражения вновь введеннный оператор
-                                : stateAll.allVal + symbol //если же в конце выражения никакого оператора нет, то просто добаляем введенный оператор
+                            : (/[x/+]$/).test(stateAll.allVal) && symbol === '-' //проверяем наличие в конце выражения любого из операторов
+                            ? stateAll.allVal + '-'
+                            : (/[-]$/).test(stateAll.allVal) && symbol === '-' 
+                                ? stateAll.allVal.slice(0, -1) + '+'
+                                    : (/[x/+-]$/).test(stateAll.allVal) && symbol !== '-'
+                                    ? stateAll.allVal.slice(0, -1) + symbol //если какой-нибудь оператор присутствует, то удаляем его и добавляем в конец выражения вновь введеннный оператор
+                                    : stateAll.allVal + symbol //если же в конце выражения никакого оператора нет, то просто добаляем введенный оператор
                 })
                 setValue({ curVal: symbol })
                 break
@@ -121,9 +125,9 @@ function App() {
                 setAll({
                     allVal:
                         (/[x/+-]$/).test(stateAll.allVal)
-                            ? stateAll.allVal + '0.' 
+                            ? stateAll.allVal + '0.'
                             : stateAll.allVal.match(/[0-9]*\.?[0-9]*$/)[0].includes('.')  //indexOf('.') !== -1 - Другой вариант поиска данного символа в строке
-                                ? stateAll.allVal 
+                                ? stateAll.allVal
                                 : stateAll.allVal + '.'
                 })
                 setValue({
