@@ -66,7 +66,11 @@ function App() {
         _React$useState4 = _slicedToArray(_React$useState3, 2),
         stateValue = _React$useState4[0],
         setValue = _React$useState4[1];
-    //const [stateOperator, setOperator] = React.useState({ operator: '' })
+
+    var _React$useState5 = React.useState({ equvals: false }),
+        _React$useState6 = _slicedToArray(_React$useState5, 2),
+        stateEquvals = _React$useState6[0],
+        setEquvals = _React$useState6[1];
 
     var handleKey = function handleKey(symbol) {
         var isDigit = /[0-9]/.test(symbol);
@@ -85,7 +89,7 @@ function App() {
                 break;
             case digit:
                 setAll({
-                    allVal: stateAll.allVal === '0' ? symbol : stateAll.allVal + symbol
+                    allVal: stateAll.allVal === '0' || stateAll.allVal.includes('=') ? symbol : stateAll.allVal + symbol //, console.log(symbol))
                 });
                 setValue({
                     curVal: stateValue.curVal === '0' || /[x/+-]/.test(stateValue.curVal) ? symbol : stateValue.curVal + symbol
@@ -93,7 +97,7 @@ function App() {
                 break;
             case operator:
                 setAll({
-                    allVal: /\.$/.test(stateAll.allVal) //проверяем наличие точки в конце общего выражения
+                    allVal: /=/g.test(stateAll.allVal) ? stateAll.allVal.match(/[0-9\.]+$/) + symbol : /\.$/.test(stateAll.allVal) //проверяем наличие точки в конце общего выражения
                     ? stateAll.allVal.slice(0, -1) + symbol //если точка есть, то удаляем ее и добавляем в конец выражения введенный оператор
                     : /[x/+]$/.test(stateAll.allVal) && symbol === '-' //если точки нет, то проверяем, чтобы в конце выражения был любой из операторов "x", "/" или "+" и введенный оператор был "-"
                     ? stateAll.allVal + '-' //если это так, то в конец выражения добавляем оператор "-"
@@ -116,6 +120,14 @@ function App() {
                     curVal: /[x/+-]/.test(stateValue.curVal) //проверка наличия оператора в текущем выражении
                     ? '0.' : stateValue.curVal.includes('.') //если есть оператор, то на место оператора ставится '0.' (ноль с точкой), а если же нет оператора, то проверяется наличие точки
                     ? stateValue.curVal : stateValue.curVal + '.' //если точка есть, то выражение не меняется, если же точки нет, то к выражению добавляется точка
+                });
+                break;
+            case '=':
+                //console.log(stateAll.allVal)                             
+                setAll({
+                    allVal: /[=]/g.test(stateAll.allVal) || /[x/+-]$/.test(stateAll.allVal) //если в выражении есть "=" или в конце присутствует любой из операторов "x", "/", "+" или "-"
+                    ? stateAll.allVal //то выражение не меняется
+                    : /[x/+-]/g.test(stateAll.allVal) ? stateAll.allVal + '=' + eval(stateAll.allVal.replace(/x/g, '*')) : stateAll.allVal
                 });
                 break;
             default:
@@ -170,6 +182,11 @@ function Display(props) {
         )
     );
 }
+
+//function Equals(props) {
+//    console.log('equvals в Equals равен ' + props.equvals)
+//    return (null)
+//}
 
 function Button(props) {
 
