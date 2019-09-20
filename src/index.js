@@ -77,7 +77,6 @@ function App() {
 
     const [stateAll, setAll] = React.useState({ allVal: '0' })
     const [stateValue, setValue] = React.useState({ curVal: '0' })
-    const [stateEquvals, setEquvals] = React.useState({ equvals: false })
 
     const handleKey = (symbol) => {
         const isDigit = (/[0-9]/).test(symbol)
@@ -96,20 +95,20 @@ function App() {
                 break
             case digit:
                 setAll({
-                    allVal: stateAll.allVal === '0' || stateAll.allVal.includes('=')
-                        ? symbol
-                        : stateAll.allVal + symbol //, console.log(symbol))
+                    allVal: stateAll.allVal === '0' || /=/g.test(stateAll.allVal) //если выражение равно нулю или содержит знак равно
+                        ? symbol //то выражение заменяем на введенный с клавиатуры символ
+                        : stateAll.allVal + symbol //иначе, введенный символ добавляем к выражению
                 })
                 setValue({
-                    curVal: stateValue.curVal === '0' || (/[x/+-]/).test(stateValue.curVal)
+                    curVal: stateValue.curVal === '0' || (/[x/+-]/).test(stateValue.curVal) || /=/g.test(stateAll.allVal)
                         ? symbol : stateValue.curVal + symbol
                 })
                 break
             case operator:
                 setAll({
-                    allVal: /=/g.test(stateAll.allVal)
-                        ? stateAll.allVal.match(/[0-9\.]+$/) + symbol
-                        : (/\.$/).test(stateAll.allVal) //проверяем наличие точки в конце общего выражения
+                    allVal: /=/g.test(stateAll.allVal) //если в выражении есть знак "равно"
+                        ? stateAll.allVal.match(/[0-9\.]+$/) + symbol //то выделяем число после "равно" и добавляем к числу введенный оператор
+                        : (/\.$/).test(stateAll.allVal) //иначе, проверяем наличие точки в конце выражения
                             ? stateAll.allVal.slice(0, -1) + symbol //если точка есть, то удаляем ее и добавляем в конец выражения введенный оператор
                             : (/[x/+]$/).test(stateAll.allVal) && symbol === '-' //если точки нет, то проверяем, чтобы в конце выражения был любой из операторов "x", "/" или "+" и введенный оператор был "-"
                                 ? stateAll.allVal + '-' //если это так, то в конец выражения добавляем оператор "-"
@@ -125,31 +124,51 @@ function App() {
                 break
             case '.':
                 setAll({
-                    allVal: /[x/+-]$/.test(stateAll.allVal)
-                        ? stateAll.allVal + '0.'
-                        : stateAll.allVal.match(/[0-9]*\.?[0-9]*$/)[0].includes('.')  //indexOf('.') !== -1 - Другой вариант поиска данного символа в строке
-                            ? stateAll.allVal
-                            : stateAll.allVal + '.'
+                    allVal: /=/g.test(stateAll.allVal) //если в выражении есть знак "равно"
+                        ? '0.' //то выражение заменяем на ноль с точкой
+                        : /[x/+-]$/.test(stateAll.allVal) //иначе, если в конце выражения есть любой из операторов "x", "/", "+" или "-"
+                            ? stateAll.allVal + '0.' //то к выражению добавляем ноль с точкой
+                            : /\./g.test(stateAll.allVal.match(/[0-9]*\.?[0-9]*$/)[0])
+                                ? stateAll.allVal
+                                : stateAll.allVal + '.'
                 })
                 setValue({
-                    curVal: /[x/+-]/.test(stateValue.curVal) //проверка наличия оператора в текущем выражении
-                        ? '0.' : stateValue.curVal.includes('.') //если есть оператор, то на место оператора ставится '0.' (ноль с точкой), а если же нет оператора, то проверяется наличие точки
-                            ? stateValue.curVal : stateValue.curVal + '.' //если точка есть, то выражение не меняется, если же точки нет, то к выражению добавляется точка
+                    curVal: /=/g.test(stateAll.allVal) //если в выражении есть знак "равно"
+                        ? '0.' //то значение заменяем на ноль с точкой
+                        : /[x/+-]/.test(stateValue.curVal) //иначе, если в текущем значении есть любой из операторов "x", "/", "+" или "-"
+                            ? '0.' : /\./g.test(stateValue.curVal) //то на место оператора ставится ноль с точкой, иначе, проверяется наличие точки
+                                ? stateValue.curVal : stateValue.curVal + '.' //если точка есть, то значение не меняется, если же точки нет, то к значению добавляется точка
                 })
                 break
             case '=':
-                //console.log(stateAll.allVal)                             
                 setAll({
-                    allVal: /[=]/g.test(stateAll.allVal) || /[x/+-]$/.test(stateAll.allVal) //если в выражении есть "=" или в конце присутствует любой из операторов "x", "/", "+" или "-"
+                    allVal: /[=]/g.test(stateAll.allVal) || /[x/+-]$/.test(stateAll.allVal) //если в выражении есть "=" или в конце выржения присутствует любой из операторов "x", "/", "+" или "-"
                         ? stateAll.allVal //то выражение не меняется
-                        : /[x/+-]/g.test(stateAll.allVal)
-                            ? stateAll.allVal + '=' + eval(stateAll.allVal.replace(/x/g, '*'))
-                            : stateAll.allVal
+                        : /[x/+-]/g.test(stateAll.allVal) //иначе, если в выражении присутствует любой из операторов "x", "/", "+" или "-"
+                            ? stateAll.allVal + '=' + eval(stateAll.allVal.replace(/x/g, '*')) //то к выражению добавляем знак "равно" и результат вычислений
+                            : stateAll.allVal //иначе выражение не меняется
+                })
+                setValue({
+                    curVal: /[=]/g.test(stateAll.allVal) //если в выражении есть "="
+                        ? stateValue.curVal //то значение не меняется
+                        : /[x/+-]/.test(stateValue.curVal) || stateValue.curVal === '0.' //иначе, если в текущем значении есть любой из операторов "x", "/", "+", "-" или текущее значение равно нулю с точкой
+                            ? stateValue.curVal //то значение остается прежним
+                            : '' + eval(stateAll.allVal.replace(/x/g, '*')) //иначе, показываем результат вычислений (пустые кавычки приводят результат вычислений к строчному типу)
                 })
                 break
-            default:
-                //setDisplay({ display: symbol })
-                break
+            case '<=':
+                setAll({ allVal: backspace(stateAll.allVal) })
+                setValue({ curVal: backspace(stateAll.allVal, stateValue.curVal) })
+        }
+        
+        function backspace(arg1, arg2 = arg1) {
+            return (
+                /[=]/g.test(arg1) //если в выражении есть "="
+                    ? '0' //то обнуляем выражение
+                    : arg2.length === 1 //иначе, если длина строки выражения равна одному символу
+                        ? '0' //то обнуляем выражение
+                        : arg2.slice(0, -1) //иначе, удаляем последний символ
+            )
         }
     }
 
@@ -192,11 +211,6 @@ function Display(props) {
         </div>
     )
 }
-
-//function Equals(props) {
-//    console.log('equvals в Equals равен ' + props.equvals)
-//    return (null)
-//}
 
 function Button(props) {
 
