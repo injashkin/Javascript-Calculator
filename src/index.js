@@ -8,8 +8,8 @@ const btnData = [
         symbolKeys: '<='
     },
     {
-        id: 'multiply',
-        symbolKeys: 'x'
+        id: 'divide',
+        symbolKeys: '/'
     },
     {
         id: 'seven',
@@ -24,8 +24,8 @@ const btnData = [
         symbolKeys: '9'
     },
     {
-        id: 'divide',
-        symbolKeys: '/'
+        id: 'multiply',
+        symbolKeys: 'x'        
     },
     {
         id: 'four',
@@ -160,7 +160,7 @@ function App() {
                 setAll({ allVal: backspace(stateAll.allVal) })
                 setValue({ curVal: backspace(stateAll.allVal, stateValue.curVal) })
         }
-        
+
         function backspace(arg1, arg2 = arg1) {
             return (
                 /[=]/g.test(arg1) //если в выражении есть "="

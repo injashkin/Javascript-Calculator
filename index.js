@@ -7,8 +7,8 @@ var btnData = [{
     id: 'backspace',
     symbolKeys: '<='
 }, {
-    id: 'multiply',
-    symbolKeys: 'x'
+    id: 'divide',
+    symbolKeys: '/'
 }, {
     id: 'seven',
     symbolKeys: '7'
@@ -19,8 +19,8 @@ var btnData = [{
     id: 'nine',
     symbolKeys: '9'
 }, {
-    id: 'divide',
-    symbolKeys: '/'
+    id: 'multiply',
+    symbolKeys: 'x'
 }, {
     id: 'four',
     symbolKeys: '4'
