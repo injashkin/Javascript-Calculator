@@ -5,10 +5,12 @@ var btnData = [{
     symbolKeys: 'AC'
 }, {
     id: 'backspace',
-    symbolKeys: '<='
+    symbolKeys: '<=',
+    className: 'operators'
 }, {
     id: 'divide',
-    symbolKeys: '/'
+    symbolKeys: '/',
+    className: 'operators'
 }, {
     id: 'seven',
     symbolKeys: '7'
@@ -20,7 +22,8 @@ var btnData = [{
     symbolKeys: '9'
 }, {
     id: 'multiply',
-    symbolKeys: 'x'
+    symbolKeys: 'x',
+    className: 'operators'
 }, {
     id: 'four',
     symbolKeys: '4'
@@ -32,7 +35,8 @@ var btnData = [{
     symbolKeys: '6'
 }, {
     id: 'subtract',
-    symbolKeys: '-'
+    symbolKeys: '-',
+    className: 'operators'
 }, {
     id: 'one',
     symbolKeys: '1'
@@ -44,7 +48,8 @@ var btnData = [{
     symbolKeys: '3'
 }, {
     id: 'add',
-    symbolKeys: '+'
+    symbolKeys: '+',
+    className: 'operators'
 }, {
     id: 'zero',
     symbolKeys: '0'
@@ -85,7 +90,7 @@ function App() {
                 setValue({ curVal: '0' });
                 break;
             case digit:
-                if (stateValue.curVal.length <= 18) {
+                if (stateValue.curVal.length <= 20) {
                     setAll({
                         allVal: stateAll.allVal === '0' || /=/g.test(stateAll.allVal) //если выражение равно нулю или содержит знак равно
                         ? symbol //то выражение заменяем на введенный с клавиатуры символ
@@ -193,7 +198,8 @@ function App() {
                     double: double,
                     id: item.id,
                     symbolKeys: item.symbolKeys,
-                    handleKey: handleKey
+                    handleKey: handleKey,
+                    className: item.className
                 });
             })
         )
@@ -203,7 +209,7 @@ function App() {
 function Display(props) {
     return React.createElement(
         'div',
-        null,
+        { className: 'displayWrap' },
         React.createElement(
             'div',
             { className: 'expression' },
@@ -226,7 +232,7 @@ function Button(props) {
     return React.createElement(
         'button',
         {
-            className: 'buttons' + props.double,
+            className: 'buttons' + props.double + ' ' + props.className,
             id: props.id,
             onClick: handleKey
         },

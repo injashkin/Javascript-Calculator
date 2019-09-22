@@ -5,11 +5,13 @@ const btnData = [
     },
     {
         id: 'backspace',
-        symbolKeys: '<='
+        symbolKeys: '<=',
+        className: 'operators'
     },
     {
         id: 'divide',
-        symbolKeys: '/'
+        symbolKeys: '/',
+        className: 'operators'
     },
     {
         id: 'seven',
@@ -25,7 +27,8 @@ const btnData = [
     },
     {
         id: 'multiply',
-        symbolKeys: 'x'
+        symbolKeys: 'x',
+        className: 'operators'
     },
     {
         id: 'four',
@@ -41,7 +44,8 @@ const btnData = [
     },
     {
         id: 'subtract',
-        symbolKeys: '-'
+        symbolKeys: '-',
+        className: 'operators'
     },
     {
         id: 'one',
@@ -57,7 +61,8 @@ const btnData = [
     },
     {
         id: 'add',
-        symbolKeys: '+'
+        symbolKeys: '+',
+        className: 'operators'
     },
     {
         id: 'zero',
@@ -96,7 +101,7 @@ function App() {
                 setValue({ curVal: '0' })
                 break
             case digit:
-                if (stateValue.curVal.length <= 18) {
+                if (stateValue.curVal.length <= 20) {
                     setAll({
                         allVal: stateAll.allVal === '0' || /=/g.test(stateAll.allVal) //если выражение равно нулю или содержит знак равно
                             ? symbol //то выражение заменяем на введенный с клавиатуры символ
@@ -204,6 +209,7 @@ function App() {
                             id={item.id}
                             symbolKeys={item.symbolKeys}
                             handleKey={handleKey}
+                            className={item.className}
                         />
                     )
                 })}
@@ -214,7 +220,7 @@ function App() {
 
 function Display(props) {
     return (
-        <div>
+        <div className='displayWrap'>
             <div className='expression'>{props.allVal}</div>
             <div id='display' className='display'>{props.curVal}</div>
         </div>
@@ -229,9 +235,9 @@ function Button(props) {
 
     return (
         <button
-            className={'buttons' + props.double}
+            className={'buttons' + props.double + ' ' + props.className}
             id={props.id}
-            onClick={handleKey}
+            onClick={handleKey}            
         >
             {props.symbolKeys}
         </button>

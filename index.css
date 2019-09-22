@@ -1,31 +1,58 @@
 .body {
   font-size: 1.5rem; }
 
+#root {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
 .calc {
   display: flex;
   flex-direction: column;
-  width: 16rem; }
+  justify-content: center;
+  width: 18.812rem;
+  border: 0.4rem solid #099453;
+  border-radius: 0.2rem; }
+
+.displayWrap {
+  background-color: #667b30;
+  border-bottom: 0.3rem solid #099453; }
 
 .expression {
   font-size: 1rem;
-  text-align: right; }
+  text-align: right;
+  margin-right: 0.3rem;
+  margin-left: 0.3rem;
+  word-wrap: break-word; }
 
 .display {
-  text-align: right; }
+  text-align: right;
+  margin-right: 0.3rem;
+  margin-left: 0.3rem; }
 
 .padButtons {
   display: flex;
   flex-wrap: wrap; }
 
 .buttons {
-  width: 4rem;
-  height: 4rem; }
+  width: 4.5rem;
+  height: 4rem;
+  background-color: #099453;
+  color: #ffffff; }
 
 .doubleW {
-  width: 8rem; }
+  width: 9rem; }
 
 .doubleH {
   height: 8rem; }
+
+#clear {
+  background-color: #D5400D; }
+
+.operators {
+  background-color: #105988;
+  color: #ffffff; }
 
 #zero, #decimal, #equals {
   margin-top: -4rem; }
