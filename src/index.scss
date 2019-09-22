@@ -1,9 +1,9 @@
-$buttonWidth: 4.5rem;
+$buttonWidth: 5rem;
 $buttonHeight: 4rem;
 //$fontSize: 
 
 .body {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 #root {
@@ -37,6 +37,7 @@ $buttonHeight: 4rem;
 }
 
 .display {
+    font-size: 1.6rem
     text-align: right;
     margin-right: 0.3rem;  
     margin-left: 0.3rem;      

@@ -101,7 +101,11 @@ function App() {
                 setValue({ curVal: '0' })
                 break
             case digit:
-                if (stateValue.curVal.length <= 20) {
+                if (stateValue.curVal.length > 17) {  //&& stateValue.curVal === 'Digit Limit Met'
+                    const prevVal = stateValue.curVal
+                    setValue({ curVal: 'Digit Limit Met' })
+                    setTimeout(() => setValue({ curVal: prevVal }), 1000)
+                } else {
                     setAll({
                         allVal: stateAll.allVal === '0' || /=/g.test(stateAll.allVal) //если выражение равно нулю или содержит знак равно
                             ? symbol //то выражение заменяем на введенный с клавиатуры символ
@@ -111,10 +115,6 @@ function App() {
                         curVal: stateValue.curVal === '0' || (/[x/+-]/).test(stateValue.curVal) || /=/g.test(stateAll.allVal)
                             ? symbol : stateValue.curVal + symbol
                     })
-                } else {
-                    const prevVal = stateValue.curVal
-                    setValue({ curVal: 'Digit Limit Met' })
-                    setTimeout(() => setValue({ curVal: prevVal }), 1000)
                 }
                 break
             case operator:
@@ -237,7 +237,7 @@ function Button(props) {
         <button
             className={'buttons' + props.double + ' ' + props.className}
             id={props.id}
-            onClick={handleKey}            
+            onClick={handleKey}
         >
             {props.symbolKeys}
         </button>
