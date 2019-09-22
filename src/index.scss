@@ -1,17 +1,24 @@
 $buttonWidth: 4rem;
 $buttonHeight: 4rem;
+//$fontSize: 
+
+.body {
+    font-size: 1.5rem;
+}
 
 .calc {
     display: flex;
     flex-direction: column;
-    width: 16rem;
-    //border: 0.2em solid black;
+    width: 16rem;    
 }
 
-#display {
+.expression {
+    font-size: 1rem;
     text-align: right;
-    //border: 0.1em solid black;
-    height: 3rem;
+}
+
+.display {
+    text-align: right;        
 }
 
 .padButtons {
@@ -19,7 +26,7 @@ $buttonHeight: 4rem;
     flex-wrap: wrap;    
 }
 
-.buttons {
+.buttons {    
     width: $buttonWidth;
     height: $buttonHeight;
 }
