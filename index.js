@@ -90,14 +90,7 @@ function App() {
                 setValue({ curVal: '0' });
                 break;
             case digit:
-                if (stateValue.curVal.length > 17) {
-                    //&& stateValue.curVal === 'Digit Limit Met'
-                    var prevVal = stateValue.curVal;
-                    setValue({ curVal: 'Digit Limit Met' });
-                    setTimeout(function () {
-                        return setValue({ curVal: prevVal });
-                    }, 1000);
-                } else {
+                if (stateValue.curVal.length < 21 && stateValue.curVal !== 'Digit Limit Met') {
                     setAll({
                         allVal: stateAll.allVal === '0' || /=/g.test(stateAll.allVal) //если выражение равно нулю или содержит знак равно
                         ? symbol //то выражение заменяем на введенный с клавиатуры символ
@@ -106,6 +99,14 @@ function App() {
                     setValue({
                         curVal: stateValue.curVal === '0' || /[x/+-]/.test(stateValue.curVal) || /=/g.test(stateAll.allVal) ? symbol : stateValue.curVal + symbol
                     });
+                } else {
+                    if (stateValue.curVal !== 'Digit Limit Met') {
+                        var prevVal = stateValue.curVal;
+                        setValue({ curVal: 'Digit Limit Met' });
+                        setTimeout(function () {
+                            return setValue({ curVal: prevVal });
+                        }, 1000);
+                    }
                 }
                 break;
             case operator:
@@ -150,12 +151,15 @@ function App() {
                     ? stateAll.allVal + '=' + eval(stateAll.allVal.replace(/x/g, '*')) //то к выражению добавляем знак "равно" и результат вычислений
                     : stateAll.allVal //иначе выражение не меняется
                 });
+
+                console.log(('' + eval(stateAll.allVal.replace(/x/g, '*'))).length);
+
                 setValue({
-                    curVal: /[=]/g.test(stateAll.allVal) //если в выражении есть "="
+                    curVal: /[=]/g.test(stateAll.allVal) || /[x/+-]/.test(stateValue.curVal) || stateValue.curVal === '0.' //если в выражении есть "=", или если в текущем значении есть любой из операторов "x", "/", "+", "-", или текущее значение равно нулю с точкой
                     ? stateValue.curVal //то значение не меняется
-                    : /[x/+-]/.test(stateValue.curVal) || stateValue.curVal === '0.' //иначе, если в текущем значении есть любой из операторов "x", "/", "+", "-" или текущее значение равно нулю с точкой
-                    ? stateValue.curVal //то значение остается прежним
-                    : '' + eval(stateAll.allVal.replace(/x/g, '*')) //иначе, показываем результат вычислений (пустые кавычки приводят результат вычислений к строчному типу)
+                    : /[x/+-]/g.test(stateAll.allVal) //иначе, если в выражении есть любой из операторов "x", "/", "+" или "-"
+                    ? '' + eval(stateAll.allVal.replace(/x/g, '*')) //показываем результат вычислений (пустые кавычки приводят результат вычислений к строчному типу)
+                    : stateValue.curVal //иначе, значение не меняется
                 });
                 break;
             case '<=':
