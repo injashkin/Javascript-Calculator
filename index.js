@@ -111,11 +111,13 @@ function App() {
                 break;
             case operator:
                 setAll({
-                    allVal: /=/g.test(stateAll.allVal) //если в выражении есть знак "равно"
+                    allVal: /e/g.test(stateAll.allVal) //если в выражении есть буква 'e'
+                    ? stateAll.allVal + symbol //то, добаляем введенный оператор                      
+                    : /=/g.test(stateAll.allVal) // иначе, если в выражении есть знак "равно"
                     ? stateAll.allVal.match(/[\-0-9\.]+$/) + symbol //то выделяем после "равно" минус(если есть) и число и добавляем к числу введенный оператор
                     : /\.$/.test(stateAll.allVal) //иначе, если есть точка в конце выражения
                     ? stateAll.allVal.slice(0, -1) + symbol //то удаляем точку и добавляем в конец выражения введенный оператор
-                    : /[x/+]$/.test(stateAll.allVal) && symbol === '-' //иначе, если конце выражения есть "x", "/" или "+" и введенный оператор равен "-"
+                    : /[x/+]$/.test(stateAll.allVal) && symbol === '-' //иначе, если в конце выражения есть "x", "/" или "+" и введенный оператор равен "-"
                     ? stateAll.allVal + '-' //то в конец выражения добавляем оператор "-"
                     : /[-]$/.test(stateAll.allVal) && symbol === '-' //иначе, если в конце выражения "-" и введенный оператор равен "-"
                     ? stateAll.allVal //то ничего не меняем
@@ -123,7 +125,7 @@ function App() {
                     ? stateAll.allVal.slice(0, -2) + symbol //то в конце выражения удаляем два оператора и добавляем введенный оператор
                     : /[x/+-]$/.test(stateAll.allVal) && symbol !== '-' //иначе, если в конце "x", "/", "+" или "-" и введенный оператор "-"
                     ? stateAll.allVal.slice(0, -1) + symbol //то удаляем "x", "/", "+" или "-" и добавляем в конец выражения введеннный оператор
-                    : stateAll.allVal + symbol //иначе, добаляем введенный оператор
+                    : stateAll.allVal + symbol //иначе, добаляем введенный оператор                    
                 });
                 setValue({ curVal: symbol });
                 break;
