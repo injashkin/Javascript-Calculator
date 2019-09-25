@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 20.812rem;
+  width: 22.012rem;
   border: 0.4rem solid #099453;
   border-radius: 0.2rem; }
 
@@ -37,13 +37,13 @@
   flex-wrap: wrap; }
 
 .buttons {
-  width: 5rem;
+  width: 5.3rem;
   height: 4rem;
   background-color: #099453;
   color: #ffffff; }
 
 .doubleW {
-  width: 10rem; }
+  width: 10.6rem; }
 
 .doubleH {
   height: 8rem; }

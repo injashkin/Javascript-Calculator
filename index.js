@@ -90,7 +90,7 @@ function App() {
                 setValue({ curVal: '0' });
                 break;
             case digit:
-                if (stateValue.curVal.length < 21 && stateValue.curVal !== 'Digit Limit Met') {
+                if (stateValue.curVal.length < 22 && stateValue.curVal !== 'Digit Limit Met') {
                     setAll({
                         allVal: stateAll.allVal === '0' || /=/g.test(stateAll.allVal) //если выражение равно нулю или содержит знак равно
                         ? symbol //то выражение заменяем на введенный с клавиатуры символ
@@ -111,10 +111,8 @@ function App() {
                 break;
             case operator:
                 setAll({
-                    allVal: /e/g.test(stateAll.allVal) //если в выражении есть буква 'e'
-                    ? stateAll.allVal + symbol //то, добаляем введенный оператор                      
-                    : /=/g.test(stateAll.allVal) // иначе, если в выражении есть знак "равно"
-                    ? stateAll.allVal.match(/[\-0-9\.]+$/) + symbol //то выделяем после "равно" минус(если есть) и число и добавляем к числу введенный оператор
+                    allVal: /=/g.test(stateAll.allVal) // иначе, если в выражении есть знак "равно"
+                    ? stateAll.allVal.match(/[-0-9\.e\+-]+$/) + symbol //то выделяем после "равно" минус(если есть) и число и добавляем к числу введенный оператор
                     : /\.$/.test(stateAll.allVal) //иначе, если есть точка в конце выражения
                     ? stateAll.allVal.slice(0, -1) + symbol //то удаляем точку и добавляем в конец выражения введенный оператор
                     : /[x/+]$/.test(stateAll.allVal) && symbol === '-' //иначе, если в конце выражения есть "x", "/" или "+" и введенный оператор равен "-"
@@ -125,7 +123,7 @@ function App() {
                     ? stateAll.allVal.slice(0, -2) + symbol //то в конце выражения удаляем два оператора и добавляем введенный оператор
                     : /[x/+-]$/.test(stateAll.allVal) && symbol !== '-' //иначе, если в конце "x", "/", "+" или "-" и введенный оператор "-"
                     ? stateAll.allVal.slice(0, -1) + symbol //то удаляем "x", "/", "+" или "-" и добавляем в конец выражения введеннный оператор
-                    : stateAll.allVal + symbol //иначе, добаляем введенный оператор                    
+                    : stateAll.allVal + symbol //иначе, добаляем введенный оператор 
                 });
                 setValue({ curVal: symbol });
                 break;
@@ -153,8 +151,6 @@ function App() {
                     ? stateAll.allVal + '=' + eval(stateAll.allVal.replace(/x/g, '*')) //то к выражению добавляем знак "равно" и результат вычислений
                     : stateAll.allVal //иначе выражение не меняется
                 });
-
-                console.log(('' + eval(stateAll.allVal.replace(/x/g, '*'))).length);
 
                 setValue({
                     curVal: /[=]/g.test(stateAll.allVal) || /[x/+-]/.test(stateValue.curVal) || stateValue.curVal === '0.' //если в выражении есть "=", или если в текущем значении есть любой из операторов "x", "/", "+", "-", или текущее значение равно нулю с точкой
