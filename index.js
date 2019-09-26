@@ -180,31 +180,54 @@ function App() {
 
     return React.createElement(
         'div',
-        { className: 'calc' },
-        React.createElement(Display, {
-            allVal: stateAll.allVal,
-            curVal: stateValue.curVal
-        }),
+        null,
         React.createElement(
             'div',
-            { className: 'padButtons' },
-            btnData.map(function (item) {
-                var double = '';
-                if (item.symbolKeys === 'AC') {
-                    double = ' doubleW';
-                }
-                if (item.symbolKeys === '+') {
-                    double = ' doubleH';
-                }
-                return React.createElement(Button, {
-                    key: item.id,
-                    double: double,
-                    id: item.id,
-                    symbolKeys: item.symbolKeys,
-                    handleKey: handleKey,
-                    className: item.className
-                });
-            })
+            { className: 'calc' },
+            React.createElement(Display, {
+                allVal: stateAll.allVal,
+                curVal: stateValue.curVal
+            }),
+            React.createElement(
+                'div',
+                { className: 'padButtons' },
+                btnData.map(function (item) {
+                    var double = '';
+                    if (item.symbolKeys === 'AC') {
+                        double = ' doubleW';
+                    }
+                    if (item.symbolKeys === '+') {
+                        double = ' doubleH';
+                    }
+                    return React.createElement(Button, {
+                        key: item.id,
+                        double: double,
+                        id: item.id,
+                        symbolKeys: item.symbolKeys,
+                        handleKey: handleKey,
+                        className: item.className
+                    });
+                })
+            )
+        ),
+        React.createElement(
+            'div',
+            { className: 'foter' },
+            '\u041A\u043E\u0434\u0435\u0440: injashkin. ',
+            React.createElement('br', null),
+            '\u0418\u0441\u0445\u043E\u0434\u043D\u0438\u043A\u0438: ',
+            React.createElement(
+                'a',
+                { target: '_blank', href: 'https://github.com/injashkin/Javascript-Calculator' },
+                'GitHub.'
+            ),
+            React.createElement('br', null),
+            '\u0414\u0435\u043C\u043E: ',
+            React.createElement(
+                'a',
+                { target: '_blank', href: 'http://projects.jinv.ru/projects/calculator/index.html' },
+                'projects.jinv.ru'
+            )
         )
     );
 }
@@ -227,7 +250,6 @@ function Display(props) {
 }
 
 function Button(props) {
-
     function handleKey() {
         props.handleKey(props.symbolKeys);
     }

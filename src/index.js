@@ -162,7 +162,7 @@ function App() {
                         : /[x/+-]/g.test(stateAll.allVal) //иначе, если в выражении присутствует любой из операторов "x", "/", "+" или "-"
                             ? stateAll.allVal + '=' + eval(stateAll.allVal.replace(/x/g, '*')) //то к выражению добавляем знак "равно" и результат вычислений
                             : stateAll.allVal //иначе выражение не меняется
-                })                
+                })
 
                 setValue({
                     curVal: /[=]/g.test(stateAll.allVal) || /[x/+-]/.test(stateValue.curVal) || stateValue.curVal === '0.' //если в выражении есть "=", или если в текущем значении есть любой из операторов "x", "/", "+", "-", или текущее значение равно нулю с точкой
@@ -190,32 +190,39 @@ function App() {
     }
 
     return (
-        <div className='calc'>
-            <Display
-                allVal={stateAll.allVal}
-                curVal={stateValue.curVal}
-            />
+        <div>
+            <div className='calc'>
+                <Display
+                    allVal={stateAll.allVal}
+                    curVal={stateValue.curVal}
+                />
 
-            <div className='padButtons'>
-                {btnData.map((item) => {
-                    let double = ''
-                    if (item.symbolKeys === 'AC') {
-                        double = ' doubleW'
-                    }
-                    if (item.symbolKeys === '+') {
-                        double = ' doubleH'
-                    }
-                    return (
-                        <Button
-                            key={item.id}
-                            double={double}
-                            id={item.id}
-                            symbolKeys={item.symbolKeys}
-                            handleKey={handleKey}
-                            className={item.className}
-                        />
-                    )
-                })}
+                <div className='padButtons'>
+                    {btnData.map((item) => {
+                        let double = ''
+                        if (item.symbolKeys === 'AC') {
+                            double = ' doubleW'
+                        }
+                        if (item.symbolKeys === '+') {
+                            double = ' doubleH'
+                        }
+                        return (
+                            <Button
+                                key={item.id}
+                                double={double}
+                                id={item.id}
+                                symbolKeys={item.symbolKeys}
+                                handleKey={handleKey}
+                                className={item.className}
+                            />
+                        )
+                    })}
+                </div>
+            </div>
+            <div className='foter'>
+                Кодер: injashkin. <br />
+                Исходники: <a target="_blank" href="https://github.com/injashkin/Javascript-Calculator">GitHub.</a><br />
+                Демо: <a target="_blank" href="http://projects.jinv.ru/projects/calculator/index.html">projects.jinv.ru</a>
             </div>
         </div>
     )
@@ -231,7 +238,6 @@ function Display(props) {
 }
 
 function Button(props) {
-
     function handleKey() {
         props.handleKey(props.symbolKeys)
     }
