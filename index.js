@@ -213,16 +213,16 @@ function App() {
         React.createElement(
             'div',
             { className: 'foter' },
-            '\u041A\u043E\u0434\u0435\u0440: injashkin. ',
+            'Coder: injashkin. ',
             React.createElement('br', null),
-            '\u0418\u0441\u0445\u043E\u0434\u043D\u0438\u043A\u0438: ',
+            'Source code: ',
             React.createElement(
                 'a',
                 { target: '_blank', href: 'https://github.com/injashkin/Javascript-Calculator' },
                 'GitHub.'
             ),
             React.createElement('br', null),
-            '\u0414\u0435\u043C\u043E: ',
+            'Demo: ',
             React.createElement(
                 'a',
                 { target: '_blank', href: 'http://projects.jinv.ru/projects/calculator/index.html' },
