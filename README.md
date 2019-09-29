@@ -1,7 +1,7 @@
 Введение
 --------
 
-Данный репозиторий является моим учебным проектом на [FreeCodeCamp](https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-javascript-calculator). 
+Данный код является моим учебным проектом на [FreeCodeCamp](https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-javascript-calculator). 
 
 Этот проект я выполнил на хуках не используя классы.
 
