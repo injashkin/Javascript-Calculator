@@ -19,3 +19,4 @@
 npm-debug.log*
 
 bundle.js
+package-lock.json
