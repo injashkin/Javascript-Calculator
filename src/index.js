@@ -220,9 +220,9 @@ function App() {
                 </div>
             </div>
             <div className='foter'>
-                Coder: injashkin. <br />
-                Source code: <a target="_blank" href="https://github.com/injashkin/Javascript-Calculator">GitHub.</a><br />
-                Demo: <a target="_blank" href="http://projects.jinv.ru/projects/calculator/index.html">projects.jinv.ru</a>
+                Создал: injashkin. <br />
+                Исходники: <a target="_blank" href="https://github.com/injashkin/Javascript-Calculator">GitHub.</a><br />
+                Демо: <a href="https://jinv.ru/calc">jinv.ru/calc</a>
             </div>
         </div>
     )
